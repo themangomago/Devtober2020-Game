@@ -88,12 +88,12 @@ The M80 provides two types of ports.
 
 | Code | Assembly | Meaning                    |
 | ---- | -------- | -------------------------- |
-| 40xx | STB x(V) | Set Bit position x on acc  |
-| 41xx | GTB x(V) | Get Bit position x on acc  |
-| 42xx | SHL x(V) | Shift left acc by x bits   |
-| 43xx | SHR x(V) | Shift right acc by x bits  |
-| 44xx | RTL x(V) | Rotate left acc by x bits  |
-| 45xx | RTR x(V) | Rotate right acc by x bits |
+| 400x | STB x(V) | Set Bit position x on acc  |
+| 410x | GTB x(V) | Get Bit position x on acc  |
+| 420x | SHL x(V) | Shift left acc by x bits   |
+| 430x | SHR x(V) | Shift right acc by x bits  |
+| 440x | RTL x(V) | Rotate left acc by x bits  |
+| 450x | RTR x(V) | Rotate right acc by x bits |
 | 4600 | GCN      | Load ctrl to acc           |
 | 4700 | SCN      | Save acc to ctrl           |
 
@@ -107,9 +107,19 @@ The M80 provides two types of ports.
 | 53xx | CNE x(V)   | if (x != acc) next line ? else: skip next line |
 | 540x | CGT x(R/P) | if (x < acc) next line ? else: skip next line  |
 | 55xx | CGT x(V)   | if (x < acc) next line ? else: skip next line  |
-| 540x | CLT x(R/P) | if (x > acc) next line ? else: skip next line  |
-| 55xx | CLT x(V)   | if (x > acc) next line ? else: skip next line  |
-| 560x | CGE x(R/P) | if (x <= acc) next line ? else: skip next line |
-| 57xx | CGE x(V)   | if (x <= acc) next line ? else: skip next line |
-| 580x | CLE x(R/P) | if (x >= acc) next line ? else: skip next line |
-| 59xx | CLE x(V)   | if (x >= acc) next line ? else: skip next line |
+| 560x | CLT x(R/P) | if (x > acc) next line ? else: skip next line  |
+| 57xx | CLT x(V)   | if (x > acc) next line ? else: skip next line  |
+| 580x | CGE x(R/P) | if (x <= acc) next line ? else: skip next line |
+| 59xx | CGE x(V)   | if (x <= acc) next line ? else: skip next line |
+| 5A0x | CLE x(R/P) | if (x >= acc) next line ? else: skip next line |
+| 5Bxx | CLE x(V)   | if (x >= acc) next line ? else: skip next line |
+
+**Error Codes**
+
+If a command is not found, the tokenizer will return the following pseudo op codes:
+
+| Pseudo OpCode | Meaning                   |
+| ------------- | ------------------------- |
+| 0x8000        | Illegal instruction found |
+| 0x8001        | Illegal address found     |
+| 0x8002        | Memory access violation   |

@@ -1,0 +1,81 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://src/Window/Window.tscn" type="PackedScene" id=1]
+[ext_resource path="res://src/Ide/Ide.gd" type="Script" id=2]
+[ext_resource path="res://src/Ide/ConsoleInput.tscn" type="PackedScene" id=3]
+[ext_resource path="res://src/Ide/Cpu/Cpu.tscn" type="PackedScene" id=4]
+[ext_resource path="res://src/Ide/ConsoleLog.tscn" type="PackedScene" id=5]
+[ext_resource path="res://src/Ide/MemoryView/MemoryView.tscn" type="PackedScene" id=6]
+
+[node name="Ide" instance=ExtResource( 1 )]
+margin_right = 646.0
+margin_bottom = 571.0
+script = ExtResource( 2 )
+
+[node name="ConsoleLog" parent="." index="1" instance=ExtResource( 5 )]
+margin_left = 4.0
+margin_top = 365.0
+margin_right = 465.0
+margin_bottom = 462.0
+
+[node name="ConsoleInput" parent="." index="2" instance=ExtResource( 3 )]
+margin_left = 4.0
+margin_top = 46.0
+margin_right = 640.0
+margin_bottom = 365.0
+text = "ADD 1
+NOP
+
+CMP 3
+JMP test
+
+test:
+MOV 0 acc
+RET
+
+"
+
+[node name="Cpu" parent="." index="3" instance=ExtResource( 4 )]
+margin_left = 466.0
+margin_top = 378.0
+margin_right = 466.0
+margin_bottom = 378.0
+
+[node name="MemoryView" parent="." index="4" instance=ExtResource( 6 )]
+margin_left = 4.0
+margin_top = 478.0
+margin_right = 524.0
+margin_bottom = 566.0
+
+[node name="Compile" type="Button" parent="." index="5"]
+margin_left = 6.0
+margin_top = 27.0
+margin_right = 71.0
+margin_bottom = 47.0
+text = "Compile"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LoadCode" type="Button" parent="." index="6"]
+margin_left = 72.0
+margin_top = 27.0
+margin_right = 146.0
+margin_bottom = 47.0
+text = "LoadCode"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Run" type="Button" parent="." index="7"]
+margin_left = 148.0
+margin_top = 27.0
+margin_right = 184.0
+margin_bottom = 47.0
+text = "Run"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="button_up" from="Compile" to="." method="_on_Compile_button_up"]
+[connection signal="button_up" from="LoadCode" to="." method="_on_LoadCode_button_up"]
+[connection signal="button_up" from="Run" to="." method="_on_Run_button_up"]

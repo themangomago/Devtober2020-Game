@@ -1,0 +1,82 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://src/Window/Window.gd" type="Script" id=1]
+[ext_resource path="res://assets/Window/Window9Patch.png" type="Texture" id=2]
+[ext_resource path="res://assets/Window/BtnClose1.png" type="Texture" id=3]
+[ext_resource path="res://assets/Window/BtnClose2.png" type="Texture" id=4]
+[ext_resource path="res://assets/Window/BtnMinimize1.png" type="Texture" id=5]
+[ext_resource path="res://assets/Window/BtnMinimize2.png" type="Texture" id=6]
+[ext_resource path="res://assets/Window/Icons/DefaultAppIcon.png" type="Texture" id=7]
+[ext_resource path="res://assets/font/Basis16.tres" type="DynamicFont" id=8]
+
+[node name="Window" type="NinePatchRect"]
+margin_right = 324.0
+margin_bottom = 263.0
+mouse_filter = 0
+texture = ExtResource( 2 )
+patch_margin_left = 4
+patch_margin_top = 26
+patch_margin_right = 4
+patch_margin_bottom = 4
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="WindowControl" type="Control" parent="."]
+anchor_right = 1.0
+margin_bottom = 26.0
+
+[node name="Icon" type="TextureRect" parent="WindowControl"]
+margin_left = 8.0
+margin_top = 7.0
+margin_right = 20.0
+margin_bottom = 19.0
+texture = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Title" type="Label" parent="WindowControl"]
+margin_left = 24.0
+margin_top = 6.0
+margin_right = 235.0
+margin_bottom = 22.0
+custom_fonts/font = ExtResource( 8 )
+custom_colors/font_color = Color( 0.156863, 0.156863, 0.180392, 1 )
+text = "Application Title"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Buttons" type="Control" parent="WindowControl"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -36.0
+margin_top = 8.0
+margin_right = -8.0
+margin_bottom = 20.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Close" type="TextureButton" parent="WindowControl/Buttons"]
+margin_left = 16.0
+texture_normal = ExtResource( 3 )
+texture_pressed = ExtResource( 4 )
+texture_hover = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Minimize" type="TextureButton" parent="WindowControl/Buttons"]
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 6 )
+texture_hover = ExtResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="gui_input" from="." to="." method="_on_Window_gui_input"]
+[connection signal="gui_input" from="WindowControl" to="." method="_on_WindowControl_gui_input"]
+[connection signal="button_up" from="WindowControl/Buttons/Close" to="." method="_on_Close_button_up"]
+[connection signal="button_up" from="WindowControl/Buttons/Minimize" to="." method="_on_Minimize_button_up"]

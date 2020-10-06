@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://src/Window/Window.tscn" type="PackedScene" id=1]
+[ext_resource path="res://src/TestWindow.gd" type="Script" id=2]
+[ext_resource path="res://assets/font/Basis16.tres" type="DynamicFont" id=3]
+
+[node name="Window" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+appId = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="." index="1"]
+margin_left = 7.0
+margin_top = 31.0
+margin_right = 316.0
+margin_bottom = 255.0
+custom_fonts/normal_font = ExtResource( 3 )
+text = "mingOS v0.1
+
+Operation System optimized for working with ming M80 assembly. 
+
+(c) 1978 - ming Inc
+
+> "

@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://assets/Taskbar/BtnStart2.png" type="Texture" id=1]
+[ext_resource path="res://assets/Taskbar/BtnStart1.png" type="Texture" id=2]
+[ext_resource path="res://assets/Taskbar/9Patch.png" type="Texture" id=3]
+[ext_resource path="res://src/Taskbar/Taskbar.gd" type="Script" id=4]
+
+[node name="Taskbar" type="NinePatchRect"]
+anchor_right = 1.0
+margin_bottom = 26.0
+texture = ExtResource( 3 )
+patch_margin_left = 4
+patch_margin_top = 4
+patch_margin_right = 4
+patch_margin_bottom = 4
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ButtonStart" type="TextureButton" parent="."]
+margin_left = 4.0
+margin_top = 4.0
+margin_right = 56.0
+margin_bottom = 22.0
+texture_normal = ExtResource( 2 )
+texture_pressed = ExtResource( 1 )
+[connection signal="button_up" from="ButtonStart" to="." method="_on_ButtonStart_button_up"]
