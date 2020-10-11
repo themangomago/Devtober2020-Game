@@ -9,6 +9,10 @@ func _ready():
 
 
 func _on_Run_button_up():
+	if compiledSource.size() == 0:
+		_on_Compile_button_up()
+		_on_LoadCode_button_up()
+	
 	var line = $Cpu.next()
 
 
@@ -16,13 +20,15 @@ func _on_Compile_button_up():
 	var result = Compiler.compile($ConsoleInput.get_text())
 
 	if result.status == OK:
-		print(result)
-		#compiledSource = result.tokenArray
+		compiledSource = result
 		$ConsoleLog.add("Source compiled successfully..")
 		#$ConsoleInputError.hide()
 	else:
 		compiledSource = []
-		for index in range(result.tokenArray.size()):
+		
+		print(result)
+		return #TODO handle errors
+		for index in range(result.source.size()):
 			var error = Compiler.containsErrorReturnString(index, result.tokenArray[index])
 			if error[0] == true:
 				$ConsoleLog.error(error[1])

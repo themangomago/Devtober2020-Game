@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://src/Ide/ConsoleInput.gd" type="Script" id=1]
 [ext_resource path="res://assets/font/Basis16.tres" type="DynamicFont" id=2]
+[ext_resource path="res://assets/Ide/linepoint.png" type="Texture" id=3]
 
 [node name="ConsoleInput" type="TextEdit"]
 margin_right = 520.0
@@ -9,6 +10,12 @@ margin_bottom = 336.0
 custom_fonts/font = ExtResource( 2 )
 custom_colors/background_color = Color( 0.156863, 0.156863, 0.180392, 1 )
 custom_colors/number_color = Color( 1, 1, 1, 1 )
+text = "te
+tst
+sa
+saf
+af
+afd"
 syntax_highlighting = true
 show_line_numbers = true
 draw_tabs = true
@@ -19,3 +26,7 @@ script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="LineCursor" type="Sprite" parent="."]
+texture = ExtResource( 3 )
+centered = false

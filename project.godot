@@ -24,6 +24,7 @@ config/icon="res://icon.png"
 Global="*res://src/_Autoloads/Global.gd"
 Types="*res://src/_Autoloads/Types.gd"
 Compiler="*res://src/_Autoloads/Compiler.gd"
+Events="*res://src/_Autoloads/Events.gd"
 
 [display]
 

@@ -24,15 +24,17 @@ margin_top = 46.0
 margin_right = 640.0
 margin_bottom = 365.0
 text = "ADD 1
-NOP
 
-CMP 3
+CMP 1
 JMP test
 
 test:
-MOV 0 acc
+MOV 1 p0
 RET
 
+unrefed:
+MOV 2 p1
+RET
 "
 
 [node name="Cpu" parent="." index="3" instance=ExtResource( 4 )]

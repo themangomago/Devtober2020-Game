@@ -20,8 +20,11 @@ func registerKeywords():
 	# Numbercolor in theme
 	
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
 	registerKeywords()
 	Global.Console.add("IDE Started..")
+	#self.set_highlight_current_line(true)
+	Events.connect_signal("IdeCpuDebugLine", self, "updateDebugLine")
  
+func updateDebugLine(line):
+	$LineCursor.position = Vector2(0, 20*line)

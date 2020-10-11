@@ -54,14 +54,15 @@ The M80 provides two types of ports.
 
 **General**
 
-| Code | Assembly          | Meaning                                         |
-| ---- | ----------------- | ----------------------------------------------- |
-| 0000 | NOP               | NOP                                             |
-| 0xxx | JMP label         | Sets the program counter to xxx Start(0x200)    |
-| 00FF | RET               | Return from Subroutine                          |
-| 10xy | MOV x(R/P) y(R/P) | Copies a value of a register to target register |
-| 2xxy | MOV x(V) y(R/P)   | Copies a integer to target register             |
-| FFFF | RES               | Resets CPU                                      |
+| Code | Assembly           | Meaning                                         |
+| ---- | ------------------ | ----------------------------------------------- |
+| 0000 | NOP                | NOP                                             |
+| 0xxx | JMP label          | Sets the program counter to xxx Start(0x200)    |
+| 00FF | RET                | Return from Subroutine                          |
+| 10xy | MOV x(R/P) y(R/P)  | Copies a value of a register to target register |
+| 2xxy | MOV x(V) y(R/P)    | Copies a integer to target register             |
+| F0xx | Label / Subroutine | Marker for subroutine. xx = Size of Subroutine  |
+| FFFF | RES                | Resets CPU                                      |
 
 **Arithmetic Operations**
 
@@ -86,10 +87,19 @@ The M80 provides two types of ports.
 
 **Bit Manipulation**
 
+Bit addressing: Starting from the least significant bit (LSB) with index 0 to most significatin bit (MSB) value 7.
+
+|                  |     |     |     |     |     |     |     |     |
+| ---------------- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Binary (Dec 149) | 1   | 0   | 0   | 1   | 0   | 1   | 0   | 1   |
+| Bit weight 2^n   | 2^7 | 2^6 | 2^5 | 2^4 | 2^3 | 2^2 | 2^1 | 2^0 |
+| Position Label   | MSB | -   | -   | -   | -   | -   | -   | LSB |
+
 | Code | Assembly | Meaning                    |
 | ---- | -------- | -------------------------- |
 | 400x | STB x(V) | Set Bit position x on acc  |
 | 410x | GTB x(V) | Get Bit position x on acc  |
+| 480x | CLB x(V) | Get Bit position x on acc  |
 | 420x | SHL x(V) | Shift left acc by x bits   |
 | 430x | SHR x(V) | Shift right acc by x bits  |
 | 440x | RTL x(V) | Rotate left acc by x bits  |

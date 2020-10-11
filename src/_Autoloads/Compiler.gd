@@ -1,7 +1,7 @@
 extends Node
 
 
-const valid_instructions = ["NOP", "JMP", "RET", "MOV", "ADD", "SUB", "INC", "DEC", "MUL", "DIV", "AND", "OR", "XOR", "STB", "GTB", "SHL", "SHR", "RTL", "RTR", "CMP", "CNE", "CGT", "CLT", "CGE", "CLE"]
+const valid_instructions = ["NOP", "JMP", "RET", "MOV", "ADD", "SUB", "INC", "DEC", "MUL", "DIV", "AND", "OR", "XOR", "STB", "GTB", "CLB", "SHL", "SHR", "RTL", "RTR", "CMP", "CNE", "CGT", "CLT", "CGE", "CLE"]
 
 
 const valid_addresses = ["acc", "r0", "r1", "r2", "r3", "r4", "r5", "r6", "p0", "p1", "p2", "p3", "p4", "p5", "p6", "p7"]
@@ -58,7 +58,7 @@ func tokenize(source):
 	}
 	
 	# Put the source in line arrays
-	var codeBase = Array(source.split("\n", false, 0))
+	var codeBase = Array(source.split("\n", true, 0))
 	
 	# Parse Labels
 	var regex = RegEx.new()
@@ -70,18 +70,19 @@ func tokenize(source):
 
 	# Tokenize Lines
 	for i in range(codeBase.size()):
-		if codeBase[i][0] != ";" and codeBase[i][1] != ";":
-			var tokens = tokenizeParseLine(codeBase[i], i, result.labels)
-			if containsError(tokens.command):
-				result.status = FAILED
-			result.tokenArray.append(tokens)
+		if codeBase[i].length() > 0:
+			if codeBase[i][0] != ";" and codeBase[i][1] != ";":
+				var tokens = tokenizeParseLine(codeBase[i], i, result.labels)
+				if containsError(tokens.command):
+					result.status = FAILED
+				result.tokenArray.append(tokens)
 	
 	# Address Labels
 	var newLabel = []
 	for label in result.labels:
 		for i in range(result.tokenArray.size()):
 			if str(label) + ":" == result.tokenArray[i].command:
-				newLabel.append({label = label, offset = i})
+				newLabel.append({label = label, addrInTokenArray = i})
 	result.labels = newLabel
 	
 	return result
@@ -172,8 +173,7 @@ func _isValidAddress(addr):
 	return false
 
 func _ready():
-	var test = 255
-	print("1" + "%02X" % test)
+	pass
 
 func _getRegisterIndex(reg):
 	return valid_addresses.find(reg)
@@ -191,7 +191,7 @@ func compileTokenizedSource(source):
 				#TODO eval Line => addr
 				for label in source.labels:
 					if line.args[0] == label.label:
-						code = "0" + "%03X" % label.offset
+						code = "0" + "%03X" % label.addrInTokenArray
 				if code == "0000":
 					print("Error Address not found")
 					
@@ -263,6 +263,8 @@ func compileTokenizedSource(source):
 				code = "400" + "%X" % line.args[0]
 			"GTB":
 				code = "410" + "%X" % line.args[0]
+			"CLB":
+				code = "480" + "%X" % line.args[0]
 			"SHL":
 				code = "420" + "%X" % line.args[0]
 			"SHR":
@@ -318,7 +320,43 @@ func compileTokenizedSource(source):
 					# 5A0x | CLE x(R/P)
 					code = "5A0" +  "%X" % _getRegisterIndex(line.args[0])
 			_:
-				print("Error")
+				
+				if line.command[line.command.length() - 1] == ":":
+					var startLine = -1
+					
+					# Get own start address
+					for label in source.labels:
+						if label.label == line.command.trim_suffix(":"):
+							startLine = label.addrInTokenArray
+							break
+					
+					if startLine == -1:
+						print("Error: Label not found")
+						return {status = FAILED, source = source}
+		
+					var length = -1
+					
+					# Loop source starting at line looking for RET statement
+					for i in range(startLine + 1, source.tokenArray.size()):
+						var command = source.tokenArray[i].command
+						
+						if command == "RET":
+							length = i - startLine
+							break
+						elif command[command.length() - 1] == ":":
+							print("RET not found before new label start")
+							return {status = FAILED, source = source}
+					
+					if length > 0:
+						code = "F0" + "%02X" % length
+						line.args.append(length)
+					else:
+						print("RET not found")
+						return {status = FAILED, source = source}
+					
+				else:
+					print("Illegal command found.")
+				
 		
 		opCodes += code
 		line.opcode = code

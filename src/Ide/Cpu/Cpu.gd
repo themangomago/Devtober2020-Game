@@ -1,14 +1,24 @@
 extends Control
 
+#signal CpuReset
+#signal CpuDebugLine
+
 var refMemoryView = null
 
-enum ArithmeticTypes {Add, Sub, Mul}
+enum ArithmeticTypes {Add, Sub, Mul, Div, Inc, Dec, And, Or, Xor}
+enum BitOpTypes {Set, Get, Clear, ShiftLeft, ShiftRight, RotateLeft, RotateRight}
+enum CompareType {Equal, NotEqual, Greater, Lesser, GreaterThan, LesserThan}
+
+
+enum CpuState {Halted = 0, Run}
+
 
 var cpu = {
 	acc = 0,
+	ctrl = 0,
 	reg = [0, 0, 0, 0, 0, 0, 0, 0],
 	pin = [0, 0, 0, 0, 0, 0, 0, 0],
-	state = 0,
+	state = CpuState.Halted,
 	power = 0,
 	ram = [0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 	rom = [0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
@@ -17,10 +27,24 @@ var cpu = {
 var codeBase = []
 
 var pointer = 0
+var returnAddr = []
+var step = 0
 
 func _ready():
+#	var test = 240
+#	var rot = 5
+#	#print( ((test << rot ) & 0xFF) | ((test >> (8 - rot)) & 0xFF )  )
+#
+#	print ( ((test >> rot) & 0xFF )| ( ( test << (8 - rot)) & 0xFF )  )
+	  
+#    /* In n<<d, last d bits are 0. To 
+#     put first 3 bits of n at  
+#    last, do bitwise or of n<<d  
+#    with n >>(INT_BITS - d) */
+#    return (n << d)|(n >> (INT_BITS - d)); 
+#
 	updateLabel()
-	
+
 
 func setNodeMemoryView(node):
 	refMemoryView = node
@@ -48,64 +72,181 @@ func updateLabel():
 		"pin: " + pinStr + "\n" +  \
 		"state:" + str(cpu.state) + "\n" + \
 		"pointer:" + str(pointer)
-
+	
+#	if codeBase.size() > 0:
+#		Events.emit_signal("IdeCpuDebugLine", codeBase.tokenArray[pointer].line)
+#		print("Executed Line: " + str(codeBase.tokenArray[pointer].line) + " command: " +  codeBase.tokenArray[pointer].command)
 
 func reset():
 	pointer = 0
-
+	emit_signal("CpuReset")
 
 func loadCode(code):
-	codeBase = code
+	codeBase = code.source
+	print("----------------------------")
+	print(codeBase)
+	print("----------------------------")
 	reset()
 
 
 func next():
-	if pointer >= codeBase.size():
+	step += 1
+	print("-------------------------")
+	print("Step " + str(step))
+	print("-------------------------")
+	if pointer >= codeBase.tokenArray.size():
 		pointer = 0
-	
-	var line = codeBase[pointer]
-
-	# MOV, ADD, SUB, NOP
-	match line.command:
-		"MOV":
-			instructionMOV(line.args[0], line.args[1])
-		"ADD":
-			instructionArithmetic(line.args[0], ArithmeticTypes.Add)
-		"SUB":
-			instructionArithmetic(line.args[0], ArithmeticTypes.Sub)
-		"MUL":
-			instructionArithmetic(line.args[0], ArithmeticTypes.Mul)
-		"NOP":
-			print("nop")
-		_:
-			Global.Console.error("Runtime error " + line.command + ": " + line.error)
-	
-	pointer += 1
+	runLine(pointer)
 	updateLabel()
-	return pointer
+	pointer += 1
+
+
+func runLine(pointer):
+	var line = codeBase.tokenArray[pointer]
+
+	match line.command:
+		"NOP":
+			pass
+		"JMP": instructionJump(line)
+		"RET": instructionReturn()
+		"MOV": instructionMOV(line)
+		"RES": instructionRES()
+		"ADD": instructionArithmetic(line.args[0], ArithmeticTypes.Add)
+		"SUB": instructionArithmetic(line.args[0], ArithmeticTypes.Sub)
+		"INC": instructionArithmetic(null, ArithmeticTypes.Inc)
+		"DEC": instructionArithmetic(null, ArithmeticTypes.Dec)
+		"MUL": instructionArithmetic(line.args[0], ArithmeticTypes.Mul)
+		"DIV": instructionArithmetic(line.args[0], ArithmeticTypes.Div) 
+		"AND": instructionArithmetic(line.args[0], ArithmeticTypes.And) 
+		"OR": instructionArithmetic(line.args[0], ArithmeticTypes.Or) 
+		"XOR": instructionArithmetic(line.args[0], ArithmeticTypes.Xor) 
+		"STB": instructionBit(line.args[0], BitOpTypes.Set)
+		"GTB": instructionBit(line.args[0], BitOpTypes.Get)
+		"CLB": instructionBit(line.args[0], BitOpTypes.Clear)
+		"SHL": instructionBit(line.args[0], BitOpTypes.ShiftLeft)
+		"SHR": instructionBit(line.args[0], BitOpTypes.ShiftRight)
+		"RTL": instructionBit(line.args[0], BitOpTypes.RotateLeft)
+		"RTR": instructionBit(line.args[0], BitOpTypes.RotateRight)
+		"GCN": cpu.acc = cpu.ctrl
+		"SCN": cpu.ctrl = cpu.acc
+		"CMP": instructionCompare(line.args[0], CompareType.Equal)
+		"CNE": instructionCompare(line.args[0], CompareType.NotEqual)
+		"CGT": instructionCompare(line.args[0], CompareType.Greater)
+		"CLT": instructionCompare(line.args[0], CompareType.Lesser)
+		"CGE": instructionCompare(line.args[0], CompareType.GreaterThan)
+		"CLE": instructionCompare(line.args[0], CompareType.LesserThan)
+		_:
+			if line.command[line.command.length() - 1] == ":":
+				if returnAddr.size() == 0:
+					# Set pointer to end of the function
+					#print("Executed Line: " + str(codeBase.tokenArray[pointer].line + 1) + " Pointer: "+ str(pointer) + " command: " +  codeBase.tokenArray[pointer].command)
+					print("Moving pointer from: " + str(pointer) + "(Line: " + str(codeBase.tokenArray[pointer].line + 1 ) +  ") to: " + str(pointer + line.args[0]) + "(Line: " + str(codeBase.tokenArray[pointer + line.args[0]].line + 1 ) +  ")")
+					pointer += line.args[0]
+			else:
+				print("Invalid Command")
+
+	if codeBase.size() > 0:
+		Events.emit_signal("IdeCpuDebugLine", codeBase.tokenArray[pointer].line)
+		print("Executed Line: " + str(codeBase.tokenArray[pointer].line + 1) + " Pointer: "+ str(pointer) + " command: " +  codeBase.tokenArray[pointer].command)
+
+func instructionCompare(arg, mode): # mode->CompareType
+	var result = false
+	var compareValue = 0
+	
+	if Compiler.isAddress(arg):
+		compareValue = getValueFromAddress(arg)
+	else:
+		compareValue = arg
+		
+	match mode:
+		CompareType.Equal: if compareValue == cpu.acc: result = true
+		CompareType.NotEqual: if compareValue != cpu.acc: result = true
+		CompareType.Greater: if compareValue < cpu.acc: result = true
+		CompareType.Lesser: if compareValue > cpu.acc: result = true
+		CompareType.GreaterThan: if compareValue <= cpu.acc: result = true
+		CompareType.LesserThan: if compareValue >= cpu.acc: result = true
+
+	if result == false:
+		pointer += 1
+
+func instructionBit(bit, mode): # mode->BitOpTypes
+	match mode:
+		BitOpTypes.Set:
+			cpu.acc |= 1 << bit
+		BitOpTypes.Get:
+			cpu.acc = (cpu.acc >> bit) & 1;
+		BitOpTypes.Clear:
+			cpu.acc &= ~(1 << bit)
+		BitOpTypes.ShiftLeft:
+			cpu.acc = (cpu.acc << bit) & 0xFF
+		BitOpTypes.ShiftRight:
+			cpu.acc = (cpu.acc >> bit) & 0xFF
+		BitOpTypes.RotateLeft:
+			cpu.acc = ((cpu.acc << bit) & 0xFF) | ((cpu.acc >> (8 - bit)) & 0xFF) 
+		BitOpTypes.RotateRight:
+			cpu.acc = ((cpu.acc >> bit) & 0xFF) | ((cpu.acc << (8 - bit)) & 0xFF)
+
+
+func instructionJump(line):
+	var offset = -1
+
+	for label in codeBase.labels:
+		if label.label == line.args[0]:
+			offset = label.addrInTokenArray
+			print("JMP: Jumping to " + str(offset))
+			print("JMP: " + str(codeBase.tokenArray[offset]))
+	
+	if offset != -1:
+		returnAddr.append(pointer + 1) # Put pointer on the address stack
+		pointer = offset # Jump to offset target
+
+func instructionReturn():
+	if returnAddr.size() > 0:
+		pointer = returnAddr.pop_back() - 1 # One previous increment and one incoming
+		print("RET: resetting pointer to: " + str(pointer) + "(Line: " + str(codeBase.tokenArray[pointer].line + 1 ) +  ")")
+		print("RET: " + str(codeBase.tokenArray[pointer]))
+
+func instructionRES():
+	reset()
+	pointer = -1 # Will be incremented afterwards
 
 func instructionArithmetic(value, operator):
 	var actualValue = 0
 
-	if Compiler.isAddress(value):
-		actualValue = getValueFromAddress(value)
-	else:
-		# Number to acc
-		actualValue = value
+	if value != null:
+		if Compiler.isAddress(value):
+			actualValue = getValueFromAddress(value)
+		else:
+			# Number to acc
+			actualValue = value
 	
 	match operator:
 		ArithmeticTypes.Add:
-			cpu.acc += actualValue
+			cpu.acc = (cpu.acc + actualValue) % 0xFF #Overflow protection
 		ArithmeticTypes.Sub:
-			cpu.acc -= actualValue
+			cpu.acc = (cpu.acc - actualValue) & 0xFF #Underflow protection
 		ArithmeticTypes.Mul:
-			cpu.acc *= actualValue
+			cpu.acc = (cpu.acc * actualValue) % 0xFF #Overflow protection
+		ArithmeticTypes.Div:
+			cpu.acc /= actualValue
+		ArithmeticTypes.Inc:
+			cpu.acc = (cpu.acc + 1) % 0xFF #Overflow protection
+		ArithmeticTypes.Dec:
+			cpu.acc = (cpu.acc - 1) & 0xFF #Underflow protection
+		ArithmeticTypes.And:
+			cpu.acc &= actualValue #Todo check?
+		ArithmeticTypes.Or:
+			cpu.acc |= actualValue #Todo check?
+		ArithmeticTypes.Xor:
+			cpu.acc ^= actualValue #Todo check?
 		_:
 			print("Unsupported Arithmetic Type")
 
 
-func instructionMOV(arg, target):
+func instructionMOV(line):
 	var fromValue = 0
+	var target = line.args[1]
+	var arg = line.args[0]
 
 	if not Compiler.isAddress(target):
 		Global.Console.error("Target is not a valid address")
@@ -119,7 +260,6 @@ func instructionMOV(arg, target):
 	else:
 		fromValue = arg
 
-	print(fromValue)
 	# Set to target
 	setValueToAddress(target, fromValue)
 
