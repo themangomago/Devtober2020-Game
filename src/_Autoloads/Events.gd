@@ -1,5 +1,9 @@
 extends Node
 
+
+#warning-ignore:unused_signal
+signal CameraSwitch(cam)
+
 #warning-ignore:unused_signal
 signal IdeCpuDebugLine(line)
 

@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://src/Computer.tscn" type="PackedScene" id=1]
+[ext_resource path="res://src/GameWorld.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/GameManager.gd" type="Script" id=3]
+[ext_resource path="res://shaders/crt-shader.tres" type="Material" id=4]
+
+[node name="GameManager" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GameWorld" parent="." instance=ExtResource( 2 )]
+
+[node name="Computer" parent="." instance=ExtResource( 1 )]
+visible = false
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+material = ExtResource( 4 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+mouse_default_cursor_shape = 3
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}

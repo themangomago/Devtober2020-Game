@@ -31,18 +31,6 @@ var returnAddr = []
 var step = 0
 
 func _ready():
-#	var test = 240
-#	var rot = 5
-#	#print( ((test << rot ) & 0xFF) | ((test >> (8 - rot)) & 0xFF )  )
-#
-#	print ( ((test >> rot) & 0xFF )| ( ( test << (8 - rot)) & 0xFF )  )
-	  
-#    /* In n<<d, last d bits are 0. To 
-#     put first 3 bits of n at  
-#    last, do bitwise or of n<<d  
-#    with n >>(INT_BITS - d) */
-#    return (n << d)|(n >> (INT_BITS - d)); 
-#
 	updateLabel()
 
 
@@ -96,12 +84,12 @@ func next():
 	print("-------------------------")
 	if pointer >= codeBase.tokenArray.size():
 		pointer = 0
-	runLine(pointer)
+	runLine()
 	updateLabel()
 	pointer += 1
 
 
-func runLine(pointer):
+func runLine():
 	var line = codeBase.tokenArray[pointer]
 
 	match line.command:
@@ -141,7 +129,7 @@ func runLine(pointer):
 					# Set pointer to end of the function
 					#print("Executed Line: " + str(codeBase.tokenArray[pointer].line + 1) + " Pointer: "+ str(pointer) + " command: " +  codeBase.tokenArray[pointer].command)
 					print("Moving pointer from: " + str(pointer) + "(Line: " + str(codeBase.tokenArray[pointer].line + 1 ) +  ") to: " + str(pointer + line.args[0]) + "(Line: " + str(codeBase.tokenArray[pointer + line.args[0]].line + 1 ) +  ")")
-					pointer += line.args[0]
+					pointer += line.args[0] 
 			else:
 				print("Invalid Command")
 
@@ -197,12 +185,12 @@ func instructionJump(line):
 			print("JMP: " + str(codeBase.tokenArray[offset]))
 	
 	if offset != -1:
-		returnAddr.append(pointer + 1) # Put pointer on the address stack
+		returnAddr.append(pointer) # Put pointer on the address stack
 		pointer = offset # Jump to offset target
 
 func instructionReturn():
 	if returnAddr.size() > 0:
-		pointer = returnAddr.pop_back() - 1 # One previous increment and one incoming
+		pointer = returnAddr.pop_back() # One previous increment and one incoming
 		print("RET: resetting pointer to: " + str(pointer) + "(Line: " + str(codeBase.tokenArray[pointer].line + 1 ) +  ")")
 		print("RET: " + str(codeBase.tokenArray[pointer]))
 

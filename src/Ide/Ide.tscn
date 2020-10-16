@@ -23,17 +23,24 @@ margin_left = 4.0
 margin_top = 46.0
 margin_right = 640.0
 margin_bottom = 365.0
-text = "ADD 1
+text = "MOV p1 acc
+ADD 1
+MOV acc p1
 
 CMP 1
-JMP test
+JMP loop
 
-test:
-MOV 1 p0
+
+loop:
+MOV p2 acc # loop counter
+CNE 5
+JMP incrementer
 RET
 
-unrefed:
-MOV 2 p1
+incrementer:
+MOV p2 acc
+INC
+MOV acc p2
 RET
 "
 
