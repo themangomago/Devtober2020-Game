@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/9Patch.png-5515d83fa8bf85da068fdb7540f41496.stex"
+path="res://.import/9Patch.png-0a5655a77bd044f1c9c5523e60e62b21.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Taskbar/9Patch.png"
-dest_files=[ "res://.import/9Patch.png-5515d83fa8bf85da068fdb7540f41496.stex" ]
+source_file="res://Assets/Taskbar/9Patch.png"
+dest_files=[ "res://.import/9Patch.png-0a5655a77bd044f1c9c5523e60e62b21.stex" ]
 
 [params]
 

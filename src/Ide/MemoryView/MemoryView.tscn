@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://assets/font/Basis16.tres" type="DynamicFont" id=1]
-[ext_resource path="res://src/Ide/MemoryView/MemoryView.gd" type="Script" id=2]
+[ext_resource path="res://Assets/font/Basis16.tres" type="DynamicFont" id=1]
+[ext_resource path="res://Src/Ide/MemoryView/MemoryView.gd" type="Script" id=2]
 
 [node name="MemoryView" type="ColorRect"]
 margin_right = 520.0

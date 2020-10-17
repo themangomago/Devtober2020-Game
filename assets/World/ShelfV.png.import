@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/DefaultAppIcon.png-9d1a4a9c7dd3e68a2f54531250cea086.stex"
+path="res://.import/ShelfV.png-599fd7b02ffa1310510d892419fa57a5.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Window/Icons/DefaultAppIcon.png"
-dest_files=[ "res://.import/DefaultAppIcon.png-9d1a4a9c7dd3e68a2f54531250cea086.stex" ]
+source_file="res://Assets/World/ShelfV.png"
+dest_files=[ "res://.import/ShelfV.png-599fd7b02ffa1310510d892419fa57a5.stex" ]
 
 [params]
 

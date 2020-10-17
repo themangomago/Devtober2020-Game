@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/BtnClose2.png-5244f45b5fcfec448edde093da6b4015.stex"
+path="res://.import/BtnClose2.png-af111cf5bc4d443e1e7943b2d4187d2b.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Window/BtnClose2.png"
-dest_files=[ "res://.import/BtnClose2.png-5244f45b5fcfec448edde093da6b4015.stex" ]
+source_file="res://Assets/Window/BtnClose2.png"
+dest_files=[ "res://.import/BtnClose2.png-af111cf5bc4d443e1e7943b2d4187d2b.stex" ]
 
 [params]
 

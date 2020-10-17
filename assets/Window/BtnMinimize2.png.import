@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/BtnMinimize2.png-4e976212fcc0407efc532a3ce73a6856.stex"
+path="res://.import/BtnMinimize2.png-0993c5c387dd65418bb2645d6773c0d7.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Window/BtnMinimize2.png"
-dest_files=[ "res://.import/BtnMinimize2.png-4e976212fcc0407efc532a3ce73a6856.stex" ]
+source_file="res://Assets/Window/BtnMinimize2.png"
+dest_files=[ "res://.import/BtnMinimize2.png-0993c5c387dd65418bb2645d6773c0d7.stex" ]
 
 [params]
 

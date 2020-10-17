@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/mingOs.png-5554609bc168e89c00be2f1dc7d45b37.stex"
+path="res://.import/mingOs.png-dbb7f4a30dfcbf244180320bc268d434.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/mingOs.png"
-dest_files=[ "res://.import/mingOs.png-5554609bc168e89c00be2f1dc7d45b37.stex" ]
+source_file="res://Assets/mingOs.png"
+dest_files=[ "res://.import/mingOs.png-dbb7f4a30dfcbf244180320bc268d434.stex" ]
 
 [params]
 

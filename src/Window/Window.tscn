@@ -1,13 +1,13 @@
 [gd_scene load_steps=9 format=2]
 
-[ext_resource path="res://src/Window/Window.gd" type="Script" id=1]
-[ext_resource path="res://assets/Window/Window9Patch.png" type="Texture" id=2]
-[ext_resource path="res://assets/Window/BtnClose1.png" type="Texture" id=3]
-[ext_resource path="res://assets/Window/BtnClose2.png" type="Texture" id=4]
-[ext_resource path="res://assets/Window/BtnMinimize1.png" type="Texture" id=5]
-[ext_resource path="res://assets/Window/BtnMinimize2.png" type="Texture" id=6]
-[ext_resource path="res://assets/Window/Icons/DefaultAppIcon.png" type="Texture" id=7]
-[ext_resource path="res://assets/font/Basis16.tres" type="DynamicFont" id=8]
+[ext_resource path="res://Src/Window/Window.gd" type="Script" id=1]
+[ext_resource path="res://Assets/Window/Window9Patch.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Window/BtnClose1.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Window/BtnClose2.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Window/BtnMinimize1.png" type="Texture" id=5]
+[ext_resource path="res://Assets/Window/BtnMinimize2.png" type="Texture" id=6]
+[ext_resource path="res://Assets/Window/Icons/DefaultAppIcon.png" type="Texture" id=7]
+[ext_resource path="res://Assets/font/Basis16.tres" type="DynamicFont" id=8]
 
 [node name="Window" type="NinePatchRect"]
 margin_right = 324.0

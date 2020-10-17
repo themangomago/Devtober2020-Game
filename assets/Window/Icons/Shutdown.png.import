@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Shutdown.png-90ca715ebcf09bb7e98afcc033702d22.stex"
+path="res://.import/Shutdown.png-531960f2387aa31449ab3166edc1d4b6.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Window/Icons/Shutdown.png"
-dest_files=[ "res://.import/Shutdown.png-90ca715ebcf09bb7e98afcc033702d22.stex" ]
+source_file="res://Assets/Window/Icons/Shutdown.png"
+dest_files=[ "res://.import/Shutdown.png-531960f2387aa31449ab3166edc1d4b6.stex" ]
 
 [params]
 

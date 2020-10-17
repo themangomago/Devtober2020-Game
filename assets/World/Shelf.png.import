@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Shelf.png-06b03fc4eec3160b8b44424809f18a5e.stex"
+path="res://.import/Shelf.png-9c7099a4c0ce62562544e1fa49686ed3.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/World/Shelf.png"
-dest_files=[ "res://.import/Shelf.png-06b03fc4eec3160b8b44424809f18a5e.stex" ]
+source_file="res://Assets/World/Shelf.png"
+dest_files=[ "res://.import/Shelf.png-9c7099a4c0ce62562544e1fa49686ed3.stex" ]
 
 [params]
 

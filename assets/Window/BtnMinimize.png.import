@@ -9,7 +9,7 @@ metadata={
 
 [deps]
 
-source_file="res://assets/Window/BtnMinimize.png"
+source_file="res://Assets/Window/BtnMinimize.png"
 dest_files=[ "res://.import/BtnMinimize.png-5caa05f32b5ac5c286e910209eb2d0ac.stex" ]
 
 [params]

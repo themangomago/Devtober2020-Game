@@ -9,7 +9,7 @@ metadata={
 
 [deps]
 
-source_file="res://assets/Window/BtnClose.png"
+source_file="res://Assets/Window/BtnClose.png"
 dest_files=[ "res://.import/BtnClose.png-5e3c8d86eaf9bd339793ff856f4e1dc4.stex" ]
 
 [params]

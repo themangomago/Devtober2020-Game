@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/linepoint.png-d39b3f1db59fb167bea406bdcf9c3794.stex"
+path="res://.import/linepoint.png-2da39e74f47d4227d0d5b523f6defdc5.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Ide/linepoint.png"
-dest_files=[ "res://.import/linepoint.png-d39b3f1db59fb167bea406bdcf9c3794.stex" ]
+source_file="res://Assets/Ide/linepoint.png"
+dest_files=[ "res://.import/linepoint.png-2da39e74f47d4227d0d5b523f6defdc5.stex" ]
 
 [params]
 

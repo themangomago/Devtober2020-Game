@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Ide2x.png-1e398bdcbab3aa0f793358db0b4077e3.stex"
+path="res://.import/Ide2x.png-bbdc6289a8655137612b2954ea1a9747.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Window/Icons/Ide2x.png"
-dest_files=[ "res://.import/Ide2x.png-1e398bdcbab3aa0f793358db0b4077e3.stex" ]
+source_file="res://Assets/Window/Icons/Ide2x.png"
+dest_files=[ "res://.import/Ide2x.png-bbdc6289a8655137612b2954ea1a9747.stex" ]
 
 [params]
 

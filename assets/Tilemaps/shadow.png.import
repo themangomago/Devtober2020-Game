@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/shadow.png-a5cd7cb8909c2ef45351d044e74bea6c.stex"
+path="res://.import/shadow.png-6ca7fdae131359fd7609e27a796b97be.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Tilemaps/shadow.png"
-dest_files=[ "res://.import/shadow.png-a5cd7cb8909c2ef45351d044e74bea6c.stex" ]
+source_file="res://Assets/Tilemaps/shadow.png"
+dest_files=[ "res://.import/shadow.png-6ca7fdae131359fd7609e27a796b97be.stex" ]
 
 [params]
 

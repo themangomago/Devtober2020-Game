@@ -1,4 +1,4 @@
-extends "res://src/Window/Window.gd"
+extends "res://Src/Window/Window.gd"
 
 
 # Declare member variables here. Examples:

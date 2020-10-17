@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/BtnStart1.png-91423ff1743a73da528c306edaffa7f6.stex"
+path="res://.import/BtnStart1.png-ccd660473511b36a678a33c505232110.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Taskbar/BtnStart1.png"
-dest_files=[ "res://.import/BtnStart1.png-91423ff1743a73da528c306edaffa7f6.stex" ]
+source_file="res://Assets/Taskbar/BtnStart1.png"
+dest_files=[ "res://.import/BtnStart1.png-ccd660473511b36a678a33c505232110.stex" ]
 
 [params]
 

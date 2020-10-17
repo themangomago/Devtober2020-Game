@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://src/Ide/ConsoleInput.gd" type="Script" id=1]
-[ext_resource path="res://assets/font/Basis16.tres" type="DynamicFont" id=2]
-[ext_resource path="res://assets/Ide/linepoint.png" type="Texture" id=3]
+[ext_resource path="res://Src/Ide/ConsoleInput.gd" type="Script" id=1]
+[ext_resource path="res://Assets/font/Basis16.tres" type="DynamicFont" id=2]
+[ext_resource path="res://Assets/Ide/linepoint.png" type="Texture" id=3]
 
 [node name="ConsoleInput" type="TextEdit"]
 margin_right = 520.0

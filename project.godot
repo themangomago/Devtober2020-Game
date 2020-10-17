@@ -15,16 +15,16 @@ _global_script_class_icons={
 
 [application]
 
-config/name="mingOS"
-run/main_scene="res://src/GameManager.tscn"
+config/name="ming, Inc"
+run/main_scene="res://Src/GameManager.tscn"
 config/icon="res://icon.png"
 
 [autoload]
 
-Global="*res://src/_Autoloads/Global.gd"
-Types="*res://src/_Autoloads/Types.gd"
-Compiler="*res://src/_Autoloads/Compiler.gd"
-Events="*res://src/_Autoloads/Events.gd"
+Global="*res://Src/_Autoloads/Global.gd"
+Types="*res://Src/_Autoloads/Types.gd"
+Compiler="*res://Src/_Autoloads/Compiler.gd"
+Events="*res://Src/_Autoloads/Events.gd"
 
 [display]
 
