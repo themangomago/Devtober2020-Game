@@ -1,8 +1,9 @@
 [gd_scene load_steps=10 format=2]
 
-[ext_resource path="res://Assets/Player/Player.png" type="Texture" id=1]
+[ext_resource path="res://Assets/People/Player.png" type="Texture" id=1]
 [ext_resource path="res://Src/Player/Player.gd" type="Script" id=2]
-[ext_resource path="res://Assets/Player/Disc.png" type="Texture" id=3]
+[ext_resource path="res://Assets/People/Disc.png" type="Texture" id=3]
+
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 4.0

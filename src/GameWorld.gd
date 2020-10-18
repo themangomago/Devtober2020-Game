@@ -1,6 +1,10 @@
 extends Node2D
 
 
+var gameState = {
+	Day = 1
+}
+
 func setCamera():
 	$Camera2D.make_current()
 

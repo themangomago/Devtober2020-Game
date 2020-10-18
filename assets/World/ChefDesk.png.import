@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/DummyChar.png-6111b09fa95ad0e696dcde702da5b2bf.stex"
+path="res://.import/ChefDesk.png-6005a28d513ad73390c19186cc1bc414.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Player/DummyChar.png"
-dest_files=[ "res://.import/DummyChar.png-6111b09fa95ad0e696dcde702da5b2bf.stex" ]
+source_file="res://Assets/World/ChefDesk.png"
+dest_files=[ "res://.import/ChefDesk.png-6005a28d513ad73390c19186cc1bc414.stex" ]
 
 [params]
 

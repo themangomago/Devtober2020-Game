@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Disc.png-9baf19ff07684744a1192932a241f41a.stex"
+path="res://.import/ExitSign.png-57e1c2c7ee985b116920b1634d336875.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Player/Disc.png"
-dest_files=[ "res://.import/Disc.png-9baf19ff07684744a1192932a241f41a.stex" ]
+source_file="res://Assets/World/ExitSign.png"
+dest_files=[ "res://.import/ExitSign.png-57e1c2c7ee985b116920b1634d336875.stex" ]
 
 [params]
 
